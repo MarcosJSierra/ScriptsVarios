@@ -12,7 +12,8 @@ def main():
 	info_array = {
 		"country": "Guatemala",
 		"currency": "Quetzales",
-		"departments":[]
+		"departments":[],
+		"resumeInfo":[]
 		}
 	req_dep = requests.get('https://capaportaldatosabiertos.mingob.gob.gt/api/dataset/7f3ea5e50ea1b9ab7e988eade7b29dbc')
 	departments_response = req_dep.json()
@@ -34,6 +35,8 @@ def main():
 		for municipality in municipalities_list:
 			if municipality["codigo_departamento"] == department["department_id"]:
 				selected_department_municipalities.append(municipality["nombre_municipio"])
+				tempString = department["department_name"]+ "," + municipality["nombre_municipio"]
+				info_array["resumeInfo"].append(tempString)
 		info_array["departments"].append({
 			"departmentName": department["department_name"],
 			"municipalities": selected_department_municipalities
